@@ -15,7 +15,7 @@ if __name__ == "__main__":
     for i, arg in enumerate(vars(args)):
         print('{}.{}: {}'.format(i, arg, vars(args)[arg]))
 
-    with open(arg, mode='r') as csv_file:
+    with open(args.fileInput, mode='r') as csv_file:
         csv_reader = csv.DictReader(csv_file)
         line_count = 0
 
