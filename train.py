@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 import numpy as np
 import tensorflow as tf
-
+import csv
 import json
 import tempfile
 import requests
@@ -14,6 +14,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     for i, arg in enumerate(vars(args)):
         print('{}.{}: {}'.format(i, arg, vars(args)[arg]))
+
+    with open(arg, mode='r') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        line_count = 0
+
 
     xs = np.array([-1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0], dtype=float)
     ys = np.array([-3.0, -1.0, 1.0, 3.0, 5.0, 7.0, 8.2], dtype=float)
