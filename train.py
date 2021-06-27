@@ -15,18 +15,25 @@ if __name__ == "__main__":
     for i, arg in enumerate(vars(args)):
         print('{}.{}: {}'.format(i, arg, vars(args)[arg]))
 
-    with open(args.fileInput, mode='r') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
+    with open(args.fileInput, 'r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                xs = np.array(np.array(row, dtype=float))
+                line_count += 1
+            else:
+                ys = np.array(np.array(row, dtype=float))
+                line_count += 1
+        print(f'Processed {line_count} lines.')
 
-
-    xs = np.array([-1.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0], dtype=float)
-    ys = np.array([-3.0, -1.0, 1.0, 3.0, 5.0, 7.0, 8.2], dtype=float)
+    print(xs)
+    print(ys)
 
     model = tf.keras.Sequential([tf.keras.layers.Dense(units=1, input_shape=[1])])
     model.compile(optimizer='sgd',
                   loss='mean_squared_error', metrics='mse')
-    history = model.fit(xs, ys, epochs=1000, verbose=1)
+    history = model.fit(xs, ys, epochs=1000, verbose=0)
     print("Finished training the model")
 
     print(model.predict([12.0]))
