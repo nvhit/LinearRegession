@@ -44,3 +44,5 @@ if __name__ == "__main__":
     data = json.dumps({"signature_name": "serving_default", "instances": xs.tolist()})
     print(data)
 
+headers = {"content-type": "application/json"}
+json_response = requests.post('http://localhost:8501/v1/models/helloworld:predict', data=data, headers=headers)
